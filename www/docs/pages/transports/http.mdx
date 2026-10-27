@@ -898,16 +898,16 @@ The headers are automatically populated by the transport layer and are available
 
 StreamableHTTP transport now supports bidirectional sampling, allowing servers to request LLM completions from clients. This enables advanced scenarios where servers can leverage client-side LLM capabilities.
 
-:::warning[Security: Human-in-the-Loop Required]
+:::warning[Security: Human-in-the-Loop Recommended]
 Per the [MCP specification](https://modelcontextprotocol.io/specification/2025-06-18/client/sampling), implementations **SHOULD** always include a human in the loop with the ability to deny sampling requests.
 
-**Your sampling handler implementation MUST:**
+The MCP specification does not mandate a specific user interaction model. **For production safety, we recommend a review flow that can:**
 - Present sampling requests to users for review before execution
 - Allow users to view and edit prompts before sending to the LLM
 - Display generated responses for approval before returning to the server
 - Provide clear UI to accept or reject sampling requests
 
-Failing to implement approval flows creates serious security and trust risks, including:
+Skipping appropriate review safeguards can create serious security and trust risks, including:
 - Servers making unauthorized LLM requests on behalf of users
 - Exposure of sensitive data through unreviewed prompts
 - Uncontrolled API costs from automated sampling
