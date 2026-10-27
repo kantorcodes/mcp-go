@@ -9,19 +9,19 @@ Sampling allows MCP clients to respond to LLM completion requests from servers. 
 :::danger[Critical Security Requirement]
 Per the [MCP specification](https://modelcontextprotocol.io/specification/2025-06-18/client/sampling#user-interaction-model), sampling implementations **SHOULD** always include a human in the loop with the ability to deny sampling requests.
 
-**You MUST implement approval flows that:**
+The protocol does not mandate a specific user interaction model. **For production safety, we recommend an approval flow that can:**
 - Present each sampling request to the user for review before execution
 - Allow users to view and edit prompts before sending to the LLM
 - Display generated responses for user approval before returning to the server
 - Provide clear UI to accept or reject requests at each stage
 
-**Without human approval, your implementation:**
+**Without appropriate human oversight, sampling can:**
 - Allows servers to make unauthorized LLM requests without user consent
 - May expose sensitive information through unreviewed prompts
 - Creates uncontrolled API costs from automated sampling
 - Violates user trust and security best practices
 
-The examples below show basic handler implementation. **You must add approval logic** before using in production.
+The examples below demonstrate a basic handler, not a complete production review flow. Add suitable human-approval safeguards before using sampling in production.
 :::
 
 ## Implementing a Sampling Handler
