@@ -16,7 +16,7 @@ const WellKnownProtectedResourcePath = "/.well-known/oauth-protected-resource"
 // as defined in RFC 9728 (https://datatracker.ietf.org/doc/html/rfc9728).
 //
 // The MCP authorization spec
-// (https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization)
+// (https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization)
 // references this metadata for server discovery: clients fetch it from
 // /.well-known/oauth-protected-resource to learn which authorization servers,
 // scopes, and bearer methods the resource supports.
