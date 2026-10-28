@@ -686,7 +686,7 @@ remains the conventional `net/http` entry point.
 Servers that require OAuth can advertise their authorization requirements
 via the [RFC 9728](https://datatracker.ietf.org/doc/html/rfc9728)
 `/.well-known/oauth-protected-resource` endpoint referenced by the
-[MCP authorization spec](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization).
+[MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization).
 Use `server.WithProtectedResourceMetadata` (or
 `server.WithSSEProtectedResourceMetadata`) to auto-mount the endpoint, or
 `server.NewProtectedResourceMetadataHandler` to wire it into a custom router.
@@ -701,6 +701,15 @@ httpServer := server.NewStreamableHTTPServer(mcpServer,
     }),
 )
 ```
+
+
+The metadata endpoint advertises the resource and its authorization servers; it
+does **not** enforce authentication for the MCP endpoint. If the server is
+protected, validate incoming access tokens in the request path, including their
+issuer, expiration, intended resource/audience, and required permissions. Do not
+accept tokens issued for another MCP server or pass the incoming bearer token to
+a downstream service. See the [MCP authorization requirements](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization)
+and [RFC 8707 resource indicators](https://www.rfc-editor.org/rfc/rfc8707).
 
 ### CORS for browser-based clients
 
