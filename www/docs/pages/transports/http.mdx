@@ -857,6 +857,17 @@ When `WithCORSAllowedOrigins("*")` is combined with `WithCORSAllowCredentials()`
 the server echoes the request's `Origin` header instead of `*` to remain
 compliant with the CORS specification.
 
+:::warning[Security: wildcard origins with credentials]
+Combining `WithCORSAllowedOrigins("*")` and `WithCORSAllowCredentials()` reflects
+**any** requesting browser origin and allows credentialed CORS responses from
+that origin. Although the response uses valid CORS header syntax, it does not
+restrict access to trusted websites. If a browser sends cookies or other
+credentials, a page hosted on an untrusted origin may be able to read the
+response. **Use an explicit list of trusted origins** when enabling credentials.
+CORS is not a replacement for authentication, authorization, or CSRF protection.
+See [PortSwigger's CORS security guidance](https://portswigger.net/web-security/cors).
+:::
+
 ### Request Headers
 
 The StreamableHTTP transport now passes HTTP request headers to MCP handlers. This allows you to access the original HTTP headers that were sent with the request in your tool and resource handlers.
