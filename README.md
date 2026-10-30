@@ -757,6 +757,14 @@ point.
 
 ### Session Management
 
+> **Protocol-version compatibility:** MCP `2026-07-28` removes the
+> `initialize`/`initialized` handshake and the `Mcp-Session-Id` HTTP header.
+> The SDK's session APIs shown below are still useful for application state
+> and older MCP protocol revisions. They do not mean that a client using
+> `2026-07-28` must create or send a transport session ID.
+> Check the request's protocol version before relying on session behavior.
+> See the [current MCP transport specification](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports).
+
 MCP-Go provides a robust session management system that allows you to:
 - Maintain separate state for each connected client
 - Register and track client sessions
